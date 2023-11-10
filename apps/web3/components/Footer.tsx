@@ -1,7 +1,7 @@
 import { FaGithub } from "react-icons/fa";
 export default function Footer() {
   return (
-      <footer className="bg-gray-800 mt-auto flex items-center justify-between p-4 text-white inset-x-0 bottom-0">
+      <footer className="bg-gray-800 mt-auto flex items-center justify-between p-4 fixed text-white inset-x-0 bottom-0">
           <div className="flex items-center">
           <svg
         width="36"
