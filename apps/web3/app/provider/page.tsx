@@ -1,18 +1,26 @@
-'use client'
-import React from "react"
-import Link from "next/link"
-import { CardDemo } from "@/components/provider/card"
-import { AlertBtn } from "@/components/provider/alertBtn";
+// Import the necessary components
+import React from "react";
 import Introduction from "@/components/provider/Introduction";
+import { CardWithForm } from "@/components/provider/card";
 
-export default function Provider(){
-    return (
-        <div className="">
-          <Introduction/>
-          <CardDemo/>
-          <h2>
-            <Link href="/">Back to home</Link>
-          </h2>
-        </div>
-      );
-}
+const Provider = () => {
+  const nft:any = [
+    {src:"bread.jpg",name:"Bread"},
+    {src:"junkfood.jpg",name:"JunkFood"},
+    {src:"protein.jpg",name:"Protein"}
+  ]
+  return (
+    <div className="flex-grow flex flex-col min-h-screen">
+      {/* Introduction Section */}
+      <section className="bg-gray-800">
+        <Introduction />
+      </section>
+      {/* NFT Table Section */}
+      <section className="bg-gray-800">
+        <CardWithForm nft={nft}/>
+      </section>
+    </div>
+  );
+};
+
+export default Provider;
