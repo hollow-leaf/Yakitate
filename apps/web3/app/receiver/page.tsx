@@ -1,28 +1,14 @@
 'use client'
 import React from "react"
 import Link from "next/link"
-import Loading from "@/components/loading";
-import ProvideButton from "@/components/providerButton";
 
 export default function Receiver(){
-
-
-
-  const isLoading = false
-
-  return (
-    <>
-    {isLoading?(
-      <Loading />
-    ):(
-      <div className="flex mx-auto my-10">
+    return (
         <div>
-          <div className="mb-5">
-            <ProvideButton />
-          </div>
+          <h1>First Post</h1>
+          <h2>
+            <Link href="/">Back to home</Link>
+          </h2>
         </div>
-      </div>
-    )}
-    </>
-  );
+      );
 }
