@@ -1,29 +1,42 @@
-"use client";
-import SectionTitle from "./SectionTitle";
-import { ProvideBtn } from "./ProvideBtn";
-import { RegitsterBtn } from "./RegisterBtn";
+"use client"
+import * as React from "react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import Image from "next/image"
+import { DetailsBtn } from "./Details"
 
-const Introduction = () => {
-
+export function CardWithForm({ nft }: any) {
   return (
     <section
       id="what"
-      className="relative z-10 py-16 md:py-20 lg:py-28 bg-black h-screen"
+      className="relative z-10 py-16 md:py-20 lg:py-28 bg-black h-max"
     >
       <div className="container mx-auto">
-        <SectionTitle
-          title="Register to be Provider"
-          paragraph="In Yakitate, to become a food provider, you must register first. Please click the <Register> button below and provide your account address to complete the registration process. After registration, you will be able to click the <Provide> button below to offer your food."
-          center
-          mb="80px"
-        />
-        <div className="flex justify-center items-center mx-auto">
-        <div className="w-1/5">
-          <RegitsterBtn/>
-          </div>
-          <div className="">
-          <ProvideBtn/>
+        <div className="text-white flex justify-center items-center text-4xl mb-10">
+          Deployed Food NFT
         </div>
+        <div className="flex flex-wrap">
+          {nft.map((nft: any, index: any) => (
+            <Card key={index} className="w-1/4 p-2 border-spacing-3 mx-1">
+              <CardHeader>
+                <CardTitle>Deployed NFT</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Image src={nft.src} alt={nft.name} width={0} height={0} sizes="100vw"
+                  style={{ width: '100%', height: 'auto' }} />
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <DetailsBtn />
+              </CardFooter>
+            </Card>
+          ))}
+
         </div>
       </div>
       <div className="absolute top-0 right-0 z-[-1] opacity-30 lg:opacity-100">
@@ -268,7 +281,5 @@ const Introduction = () => {
         </svg>
       </div>
     </section>
-  );
-};
-
-export default Introduction;
+  )
+}

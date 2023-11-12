@@ -1,10 +1,10 @@
-import {PeraWalletConnect} from "@perawallet/connect"
+import { PeraWalletConnect } from "@perawallet/connect"
 import { useEffect, useState } from "react";
 
 
 // Create the PeraWalletConnect instance outside of the component
 export const peraWallet = new PeraWalletConnect(
-  {chainId: 416002}
+  { chainId: 416002 }
 );
 
 
@@ -25,13 +25,18 @@ export function Wallet() {
   }, []);
 
   return (
-    <button
-      style = {{color: 'white'}}
-      onClick={
-        isConnectedToPeraWallet ? handleDisconnectWalletClick : handleConnectWalletClick
-      }>
-      {isConnectedToPeraWallet ? "Disconnect" : "Connect to Pera Wallet"}
-    </button>
+    <div className="text-white flex items-center space-x-4">
+      <div>
+        <p onClick={handleCopyClick}>{accountAddress}</p>
+      </div>
+      <div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={isConnectedToPeraWallet ? handleDisconnectWalletClick : handleConnectWalletClick}>
+          {isConnectedToPeraWallet ? `Disconnect` : "Connect to Pera Wallet"}
+        </button>
+      </div>
+    </div>
   );
 
   function handleConnectWalletClick() {
@@ -56,5 +61,28 @@ export function Wallet() {
     peraWallet.disconnect();
 
     setAccountAddress("");
+  }
+
+  function handleCopyClick(){
+        // Create a temporary input element
+        const tempInput = document.createElement('textarea');
+        tempInput.value = accountAddress;
+    
+        // Append the input element to the DOM
+        document.body.appendChild(tempInput);
+    
+        // Select the text inside the input
+        tempInput.select();
+    
+        try {
+          // Execute the copy command
+          document.execCommand('copy');
+          alert('Address copied to clipboard!');
+        } catch (err) {
+          console.error('Unable to copy text', err);
+        } finally {
+          // Remove the temporary input element
+          document.body.removeChild(tempInput);
+        }
   }
 }

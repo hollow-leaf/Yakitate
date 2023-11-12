@@ -4,6 +4,7 @@ import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Wallet } from '@/service/perawallet'
 
 const navigation = [
     { name: 'Provider', href: '/provider', current: true },
@@ -48,7 +49,9 @@ export default function Navbar() {
                                             </a>
                                         ))}
                                     </div>
-
+                                </div>
+                                <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-end'>
+                                    <Wallet/>
                                 </div>
                             </div>
                         </div>
