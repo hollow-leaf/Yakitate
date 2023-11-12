@@ -33,7 +33,7 @@ export default function Navbar() {
                             </div>
                             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                 <div className="flex flex-shrink-0 items-center text-white">
-                                    <Image src='../public/logo.svg' alt="Logo" width={40} height={40} />
+                                    <Image src='/logo.svg' alt="Logo" width={40} height={40} />
                                     <Link href='/'>Yakitate</Link>
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
