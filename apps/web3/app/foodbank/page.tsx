@@ -1,14 +1,26 @@
-'use client'
-import React from "react"
-import Link from "next/link"
+// Import the necessary components
+import React from "react";
+import Introduction from "@/components/foodbank/Introduction";
+import { CardWithForm } from "@/components/foodbank/card";
 
-export default function Foodbank(){
-    return (
-        <div>
-          <h1>First Post</h1>
-          <h2>
-            <Link href="/">Back to home</Link>
-          </h2>
-        </div>
-      );
-}
+const Foodbank = () => {
+  const nft:any = [
+    {src:"bread.jpg",name:"Bread"},
+    {src:"junkfood.jpg",name:"JunkFood"},
+    {src:"protein.jpg",name:"Protein"}
+  ]
+  return (
+    <div className="flex-grow flex flex-col min-h-screen">
+      {/* Introduction Section */}
+      <section className="bg-gray-800">
+        <Introduction />
+      </section>
+      {/* NFT Table Section */}
+      <section className="bg-gray-800">
+        <CardWithForm nft={nft}/>
+      </section>
+    </div>
+  );
+};
+
+export default Foodbank;
