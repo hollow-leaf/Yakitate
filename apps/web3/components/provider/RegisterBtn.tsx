@@ -8,26 +8,27 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
+  } from "@/components/ui/alert-dialog-for-register"
   import { Button } from "@/components/ui/button"
+import { Input } from "../ui/input"
   
-  export function AlertBtn() {
+  export function RegitsterBtn() {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="outline">Provide Food</Button>
+          <Button variant="outline">Register</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+          <div>
+            Address:
+            <Input type="text"/>
+            Address:
+            <Input type="text"/>
+            <br/>
+          </div>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+            <AlertDialogAction>Submit</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
