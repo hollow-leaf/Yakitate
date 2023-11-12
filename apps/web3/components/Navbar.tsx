@@ -48,8 +48,10 @@ export default function Navbar() {
                                                 {item.name}
                                             </a>
                                         ))}
-                                        <Wallet />
                                     </div>
+                                </div>
+                                <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-end'>
+                                    <Wallet/>
                                 </div>
                             </div>
                         </div>
