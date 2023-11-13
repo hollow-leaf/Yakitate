@@ -68,28 +68,18 @@ sequenceDiagram
 > Yakitate is a monorepo managed using turbo. You can find the source code for each package in the `apps/web3` and `apps/algorand` directory.
 
 - `apps/web3` is the web frontend for Inazuma. It is built using [Next.js](https://nextjs.org/).
-- `apps/algorand` is the web backend for Inazuma.It is built using [AWS EC2](https://aws.amazon.com/ec2/?nc1=h_ls) , [Express](https://expressjs.com/) , [Co2.Storage-api](https://www.npmjs.com/package/@co2-storage/js-api) , [docker](https://www.docker.com/) and [ipfs-unixfs](https://www.npmjs.com/package/ipfs-unixfs).
+- `apps/algorand` is the algorand smart contract for Yakitate.It is built using [Teal](https://developer.algorand.org/docs/get-details/dapps/avm/teal/).
 
 
-## Setting environment variable
-
-
+## Setting environment
 
 ## Deploy the contract
-
-
-### Greencoin contract
-
-
 ### Yakitate contract
 
 
 ### After deploying both of contract
 
-
-
 ## Setting Code
-
 
 ## Final
 
