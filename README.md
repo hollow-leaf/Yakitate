@@ -1,81 +1,99 @@
-# Turborepo starter
+<div align="center">
+<h1>Inazuma</h1>
 
-This is an official starter Turborepo.
+<img src="https://raw.githubusercontent.com/hollow-leaf/yakitate/477b384468f2c5060638835838daa07b6e6c846c/apps/web3/public/logo.svg" width="50%" height="50%"></img>
 
-## Using this example
+[![Frontend deploy](https://github.com/hollow-leaf/yakitate/actions/workflows/ghpage.yml/badge.svg?branch=main)](https://github.com/hollow-leaf/yakitate/actions/workflows/ghpage.yml)
 
-Run the following command:
+</div>
 
-```sh
-npx create-turbo@latest
-```
+### Demo Page
 
-## What's inside?
+- WebPage: [https://yakitate.pages.dev/](https://yakitate.pages.dev/)
+- Video: [https://youtu.be/R0JVhL2DiUE?si=Pclr36mrNvYSxCHE](https://youtu.be/R0JVhL2DiUE?si=Pclr36mrNvYSxCHE)
+- Inazuma Contract: [0x651Ccd3E07dEda23a573fdD6759b169F3840Fc35](https://goerli.etherscan.io/address/0x651Ccd3E07dEda23a573fdD6759b169F3840Fc35)
 
-This Turborepo includes the following packages/apps:
+### Abstract
 
-### Apps and Packages
+Yakitate,the decentralized food bank, using blockchain and smart contracts, connects food suppliers and users transparently. It ensures authentic tracking of production and fair resource allocation. The user-friendly app streamlines food donations and access. This project enhances efficiency, breaks distribution bottlenecks, and fosters community collaboration for a more equitable and sustainable food system.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+### Introduction
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+The goal of our project is to realize a decentralized food bank platform provider. We use Algorand to store and retrieve the acquired food donations metadata, and provide food to receiver, who can obtain food and track food source.
 
-### Utilities
+Our solution has the following features and advantages:
 
-This Turborepo has some additional tools already setup for you:
+- Provide a simple-to-operate platform to facilitate food distribution and inquiry
+- Ability to track food sources
+- Implement a public food bank map so that recipients can get donated food nearby
+- Recipients can freely choose the type of food they want
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Method
 
-### Build
+- Use [Algorand](https://www.algorand.foundation/) to store food donations metadata
+- Use [Perawallet](https://docs.perawallet.app/) to build web connect wallet button
+- Use [Teal](https://developer.algorand.org/docs/get-details/dapps/avm/teal/) to create algorand smart contract
+- Use Next.js to build web frontend
 
-To build all apps and packages, run the following command:
+### Technical Architechure
 
-```
-cd my-turborepo
-pnpm build
-```
+Yakitate workflow
+```mermaid
+sequenceDiagram
+		participant Food Provider
+		participant Food Bank
+		participant Receiver
+		participant Algorand Contract
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+		Food Provider ->> Algorand Contract: Register provider in algorand blockchain
+		Algorand Contract -->> Food Provider: Return  provider address,name,location
+		Food Bank ->> Algorand Contract: Register provider in algorand blockchain
+		Algorand Contract -->> Food Bank: Return  provider address,name,location
+		Food Provider ->> Algorand Contract: Transfer food to Food Bank
+		Algorand Contract -->> Food Bank: Receive food
+		Receiver ->> Algorand Contract: Search food map, choose food provider or bank and verify food
+		alt Receiver choose "Food Provider"
+			Algorand Contract -->> Algorand Contract: Transfer food to Receiver and set freezer for Receiver.
+		else Receiver choose "Food Bank"
+		Algorand Contract -->> Algorand Contract: Transfer food to Receiver and set freezer for Receiver.
+		end
+		opt Finally 
+		Algorand Contract -->> Receiver: Receive food and food source data
+		end	
 
 ```
-npx turbo link
-```
 
-## Useful Links
+### Build & Installation
 
-Learn more about the power of Turborepo:
+> Yakitate is a monorepo managed using turbo. You can find the source code for each package in the `apps/web3` and `apps/algorand` directory.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- `apps/web3` is the web frontend for Inazuma. It is built using [Next.js](https://nextjs.org/).
+- `apps/algorand` is the web backend for Inazuma.It is built using [AWS EC2](https://aws.amazon.com/ec2/?nc1=h_ls) , [Express](https://expressjs.com/) , [Co2.Storage-api](https://www.npmjs.com/package/@co2-storage/js-api) , [docker](https://www.docker.com/) and [ipfs-unixfs](https://www.npmjs.com/package/ipfs-unixfs).
+
+
+## Setting environment variable
+
+
+
+## Deploy the contract
+
+
+### Greencoin contract
+
+
+### Yakitate contract
+
+
+### After deploying both of contract
+
+
+
+## Setting Code
+
+
+## Final
+
+### Contributors
+
+- Frontend + Algorand Contract: [SoloLin](https://github.com/LinXJ1204)
+- CI/CD + Frontend: [JakeKuo](https://github.com/crypto0627)
