@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67970403-76b7-4f2d-b8f0-587003b694bf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../web3/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web3/app/receiver/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/app/receiver/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web3/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../../pnpm-lock.yaml" afterDir="false" />
+    <list default="true" id="f9f14d72-03e0-4024-ac6e-008dfcd3bc24" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,27 +18,31 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2Xv203b7f8ce7coCaqBx2eSx4c3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2Y5pH9CQ25Fx5saT63JQYIfGraZ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/zhengweilin/ya/yakitate/apps/algorand",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="67970403-76b7-4f2d-b8f0-587003b694bf" name="Changes" comment="" />
-      <created>1699495007998</created>
+      <changelist id="f9f14d72-03e0-4024-ac6e-008dfcd3bc24" name="Changes" comment="" />
+      <created>1699825204545</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1699495007998</updated>
+      <updated>1699825204545</updated>
     </task>
     <servers />
   </component>

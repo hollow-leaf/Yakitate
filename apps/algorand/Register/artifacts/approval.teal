@@ -1,0 +1,403 @@
+#pragma version 8
+txn NumAppArgs
+int 0
+==
+bnz main_l14
+txna ApplicationArgs 0
+method "writeGlobal(uint64)void"
+==
+bnz main_l13
+txna ApplicationArgs 0
+method "readGlobal()uint64"
+==
+bnz main_l12
+txna ApplicationArgs 0
+method "readIndex()uint64"
+==
+bnz main_l11
+txna ApplicationArgs 0
+method "NewRegister(address)uint64"
+==
+bnz main_l10
+txna ApplicationArgs 0
+method "AddressByIndex(uint64)address"
+==
+bnz main_l9
+txna ApplicationArgs 0
+method "IsRegister(uint64,address)bool"
+==
+bnz main_l8
+err
+main_l8:
+txn OnCompletion
+int NoOp
+==
+txn ApplicationID
+int 0
+!=
+&&
+assert
+callsub IsRegistercaster_13
+int 1
+return
+main_l9:
+txn OnCompletion
+int NoOp
+==
+txn ApplicationID
+int 0
+!=
+&&
+assert
+callsub AddressByIndexcaster_12
+int 1
+return
+main_l10:
+txn OnCompletion
+int NoOp
+==
+txn ApplicationID
+int 0
+!=
+&&
+assert
+callsub NewRegistercaster_11
+int 1
+return
+main_l11:
+txn OnCompletion
+int NoOp
+==
+txn ApplicationID
+int 0
+!=
+&&
+assert
+callsub readIndexcaster_10
+int 1
+return
+main_l12:
+txn OnCompletion
+int NoOp
+==
+txn ApplicationID
+int 0
+!=
+&&
+assert
+callsub readGlobalcaster_9
+int 1
+return
+main_l13:
+txn OnCompletion
+int NoOp
+==
+txn ApplicationID
+int 0
+!=
+&&
+assert
+callsub writeGlobalcaster_8
+int 1
+return
+main_l14:
+txn OnCompletion
+int NoOp
+==
+bnz main_l20
+txn OnCompletion
+int OptIn
+==
+bnz main_l19
+txn OnCompletion
+int CloseOut
+==
+bnz main_l18
+err
+main_l18:
+txn ApplicationID
+int 0
+!=
+assert
+int 1
+return
+main_l19:
+txn ApplicationID
+int 0
+!=
+assert
+int 1
+return
+main_l20:
+txn ApplicationID
+int 0
+==
+assert
+byte "MemberIndex"
+int 0
+app_global_put
+int 1
+return
+
+// writeGlobal
+writeGlobal_0:
+proto 1 0
+byte "membercount"
+frame_dig -1
+app_global_put
+retsub
+
+// readGlobal
+readGlobal_1:
+proto 0 1
+int 0
+byte "membercount"
+app_global_get
+frame_bury 0
+retsub
+
+// readIndex
+readIndex_2:
+proto 0 1
+int 0
+byte "MemberIndex"
+app_global_get
+frame_bury 0
+retsub
+
+// NewRegister
+NewRegister_3:
+proto 1 1
+int 0
+dupn 4
+frame_dig -1
+txn Sender
+b==
+assert
+int 0
+frame_bury 3
+int 32
+frame_bury 4
+byte "MemberIndex"
+app_global_get
+frame_bury 1
+frame_dig 1
+frame_dig 4
+*
+frame_bury 2
+frame_dig 1
+frame_dig 3
+==
+bz NewRegister_3_l2
+byte "Members"
+int 2048
+box_create
+assert
+NewRegister_3_l2:
+byte "Members"
+frame_dig 2
+frame_dig -1
+box_replace
+byte "MemberIndex"
+frame_dig 1
+int 1
++
+app_global_put
+frame_dig 1
+frame_bury 0
+retsub
+
+// AddressByIndex
+AddressByIndex_4:
+proto 1 1
+byte ""
+frame_dig -1
+callsub AddressByIndex_6
+frame_bury 0
+retsub
+
+// IsRegister
+IsRegister_5:
+proto 2 1
+int 0
+frame_dig -2
+frame_dig -1
+callsub IsRegister_7
+frame_bury 0
+retsub
+
+// _AddressByIndex
+AddressByIndex_6:
+proto 1 1
+byte ""
+dup
+int 0
+dupn 2
+int 32
+frame_bury 4
+frame_dig -1
+frame_bury 2
+frame_dig 2
+frame_dig 4
+*
+frame_bury 3
+byte "Members"
+frame_dig 3
+int 32
+box_extract
+frame_bury 1
+frame_dig 1
+len
+int 32
+==
+assert
+frame_dig 1
+frame_bury 0
+frame_dig 0
+len
+int 32
+==
+assert
+retsub
+
+// _IsRegister
+IsRegister_7:
+proto 2 1
+int 0
+dupn 2
+byte ""
+int 0
+int 32
+frame_bury 2
+frame_dig -2
+frame_bury 4
+IsRegister_7_l1:
+frame_dig 4
+frame_dig -2
+int 20
++
+<
+bz IsRegister_7_l5
+frame_dig 4
+frame_dig 2
+*
+frame_bury 1
+byte "Members"
+frame_dig 1
+int 32
+box_extract
+frame_bury 3
+frame_dig 3
+len
+int 32
+==
+assert
+frame_dig 3
+frame_dig -1
+b==
+bnz IsRegister_7_l4
+frame_dig 4
+int 1
++
+frame_bury 4
+b IsRegister_7_l1
+IsRegister_7_l4:
+int 1
+frame_bury 0
+IsRegister_7_l5:
+retsub
+
+// writeGlobal_caster
+writeGlobalcaster_8:
+proto 0 0
+int 0
+txna ApplicationArgs 1
+btoi
+frame_bury 0
+frame_dig 0
+callsub writeGlobal_0
+retsub
+
+// readGlobal_caster
+readGlobalcaster_9:
+proto 0 0
+int 0
+callsub readGlobal_1
+frame_bury 0
+byte 0x151f7c75
+frame_dig 0
+itob
+concat
+log
+retsub
+
+// readIndex_caster
+readIndexcaster_10:
+proto 0 0
+int 0
+callsub readIndex_2
+frame_bury 0
+byte 0x151f7c75
+frame_dig 0
+itob
+concat
+log
+retsub
+
+// NewRegister_caster
+NewRegistercaster_11:
+proto 0 0
+int 0
+byte ""
+txna ApplicationArgs 1
+frame_bury 1
+frame_dig 1
+callsub NewRegister_3
+frame_bury 0
+byte 0x151f7c75
+frame_dig 0
+itob
+concat
+log
+retsub
+
+// AddressByIndex_caster
+AddressByIndexcaster_12:
+proto 0 0
+byte ""
+int 0
+txna ApplicationArgs 1
+btoi
+frame_bury 1
+frame_dig 1
+callsub AddressByIndex_4
+frame_bury 0
+byte 0x151f7c75
+frame_dig 0
+concat
+log
+retsub
+
+// IsRegister_caster
+IsRegistercaster_13:
+proto 0 0
+int 0
+dup
+byte ""
+txna ApplicationArgs 1
+btoi
+frame_bury 1
+txna ApplicationArgs 2
+frame_bury 2
+frame_dig 1
+frame_dig 2
+callsub IsRegister_5
+frame_bury 0
+byte 0x151f7c75
+byte 0x00
+int 0
+frame_dig 0
+setbit
+concat
+log
+retsub

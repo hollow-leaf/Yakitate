@@ -1,0 +1,72 @@
+{
+  "name": "state manipulation",
+  "methods": [
+    {
+      "name": "writeGlobal",
+      "args": [
+        {
+          "type": "uint64",
+          "name": "quote"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "readGlobal",
+      "args": [],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "readIndex",
+      "args": [],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "NewRegister",
+      "args": [
+        {
+          "type": "address",
+          "name": "member"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "AddressByIndex",
+      "args": [
+        {
+          "type": "uint64",
+          "name": "index"
+        }
+      ],
+      "returns": {
+        "type": "address"
+      }
+    },
+    {
+      "name": "IsRegister",
+      "args": [
+        {
+          "type": "uint64",
+          "name": "offset"
+        },
+        {
+          "type": "address",
+          "name": "addr"
+        }
+      ],
+      "returns": {
+        "type": "bool"
+      }
+    }
+  ],
+  "networks": {}
+}
