@@ -4,11 +4,7 @@ import Introduction from "@/components/foodbank/Introduction";
 import { CardWithForm } from "@/components/foodbank/card";
 
 const Foodbank = () => {
-  const nft:any = [
-    {src:"bread.jpg",name:"Bread"},
-    {src:"junkfood.jpg",name:"JunkFood"},
-    {src:"protein.jpg",name:"Protein"}
-  ]
+
   return (
     <div className="flex-grow flex flex-col min-h-screen">
       {/* Introduction Section */}
@@ -17,7 +13,7 @@ const Foodbank = () => {
       </section>
       {/* NFT Table Section */}
       <section className="bg-gray-800">
-        <CardWithForm nft={nft}/>
+        <CardWithForm/>
       </section>
     </div>
   );

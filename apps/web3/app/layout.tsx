@@ -6,6 +6,26 @@ import { Inter as FontSans } from "next/font/google"
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Head from 'next/head'
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
+import {configureStore} from "@reduxjs/toolkit"
+import { Provider } from "react-redux";
+import userSlice from '@/store/userSlice'
+// Create a client
+const queryClient = new QueryClient()
+
+//store
+const store =configureStore({
+  reducer:{
+    //key: value
+    user:userSlice
+  },
+})
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -18,6 +38,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
     <html lang="en">
       <Head>
         <link rel="icon" href="/favicon.ico" />
@@ -34,5 +56,7 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
+    </QueryClientProvider>
+    </Provider>
   )
 }

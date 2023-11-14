@@ -11,7 +11,7 @@ import {
 import Image from "next/image"
 import { DetailsBtn } from "./Details"
 
-export function CardWithForm({ nft }: any) {
+export function CardWithForm() {
   return (
     <section
       id="what"
@@ -22,20 +22,19 @@ export function CardWithForm({ nft }: any) {
           Deployed Food NFT
         </div>
         <div className="flex flex-wrap">
-          {nft.map((nft: any, index: any) => (
-            <Card key={index} className="w-1/4 p-2 border-spacing-3 mx-1">
+          
+            <Card  className="w-1/4 p-2 border-spacing-3 mx-1">
               <CardHeader>
                 <CardTitle>Deployed NFT</CardTitle>
               </CardHeader>
               <CardContent>
-                <Image src={nft.src} alt={nft.name} width={0} height={0} sizes="100vw"
-                  style={{ width: '100%', height: 'auto' }} />
+                
               </CardContent>
               <CardFooter className="flex justify-between">
                 <DetailsBtn />
               </CardFooter>
             </Card>
-          ))}
+         
 
         </div>
       </div>
