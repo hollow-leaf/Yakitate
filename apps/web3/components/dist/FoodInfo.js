@@ -39,7 +39,7 @@ exports.__esModule = true;
 exports.food_info = exports.food_available_provider = exports.food_available = void 0;
 var algosdk_1 = require("algosdk");
 var axios_1 = require("axios");
-var host = "http://localhost:4001";
+var host = "https://testnet-api.algonode.cloud";
 var algodToken = 'a'.repeat(64);
 var algodServer = 'http://localhost';
 var algodPort = 4001;

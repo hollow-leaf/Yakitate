@@ -1,6 +1,7 @@
 import { PeraWalletConnect } from "@perawallet/connect"
-import { useEffect, useState } from "react";
-
+import { useEffect, useState,useRef } from "react";
+import { useSelector,useDispatch } from "react-redux";
+import { setLogout, setLogin } from "@/store/userSlice";
 
 // Create the PeraWalletConnect instance outside of the component
 export const peraWallet = new PeraWalletConnect(
@@ -20,10 +21,14 @@ export function Wallet() {
 
       if (accounts.length) {
         setAccountAddress(accounts[0]);
+        dispatch(setLogin({address:accounts[0]}))
       }
     });
   }, []);
 
+  const state = useSelector((state:any)=>state.user)
+  
+  const dispatch = useDispatch()
   return (
     <div className="text-white flex items-center space-x-4">
       <div>
@@ -44,8 +49,7 @@ export function Wallet() {
       .connect()
       .then((newAccounts) => {
         // Setup the disconnect event listener
-        peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);
-
+        peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);   
         setAccountAddress(newAccounts[0]);
       })
       .catch((error) => {
@@ -59,7 +63,7 @@ export function Wallet() {
 
   function handleDisconnectWalletClick() {
     peraWallet.disconnect();
-
+    dispatch(setLogout())
     setAccountAddress("");
   }
 

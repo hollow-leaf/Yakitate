@@ -6,7 +6,7 @@ const algodToken = 'a'.repeat(64);
 const algodServer = 'https://testnet-api.algonode.cloud';
 
 
-export async function provide_food(creator: string, food: string, amount: number, url: string){
+export async function provide_food(creator: string, food: string, amount: number){
     const algodClient = new algosdk.Algodv2(algodToken, algodServer);
 
     const suggestedParams = await algodClient.getTransactionParams().do();
@@ -20,7 +20,7 @@ export async function provide_food(creator: string, food: string, amount: number
     reserve: creator,
     freeze: creator,
     clawback: creator,
-    assetURL: url,
+    assetURL: " ",
     total: amount,
     decimals: 0,
     });
@@ -114,5 +114,14 @@ export async function transfer_food(from: string, Id: number, receiver: string){
     const signedXferTxn = await peraWallet.signTransaction([singleTxnGroups]);
     await algodClient.sendRawTransaction(signedXferTxn).do();
     await algosdk.waitForConfirmation(algodClient, configTxn.txID().toString(), 3);
+    
+}
+
+export async function retrieveAsset(assetIndex:number){
+    const algodClient = new algosdk.Algodv2(algodToken, algodServer);
+    
+    const assetInfo = await algodClient.getAssetByID(assetIndex).do();
+    console.log(`Asset Name: ${assetInfo.params.name}`);
+    console.log(`Asset Params: ${assetInfo.params}`);
     
 }
