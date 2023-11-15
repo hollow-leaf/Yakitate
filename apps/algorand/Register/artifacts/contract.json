@@ -2,22 +2,10 @@
   "name": "state manipulation",
   "methods": [
     {
-      "name": "writeGlobal",
-      "args": [
-        {
-          "type": "uint64",
-          "name": "quote"
-        }
-      ],
-      "returns": {
-        "type": "void"
-      }
-    },
-    {
-      "name": "readGlobal",
+      "name": "BoxInit",
       "args": [],
       "returns": {
-        "type": "uint64"
+        "type": "void"
       }
     },
     {

@@ -5,6 +5,7 @@ import { peraWallet } from "../perawallet";
 const algodToken = 'a'.repeat(64);
 const algodServer = 'https://testnet-api.algonode.cloud';
 
+const appID = 479617162;
 
 export async function provide_food(creator: string, food: string, amount: number){
     const algodClient = new algosdk.Algodv2(algodToken, algodServer);
@@ -146,16 +147,16 @@ export async function register(from: string){
 
     const boxKey = new Uint8Array(Buffer.from('Members'));
     boxATC.addMethodCall({
-        appID: 479584007,
+        appID: appID,
         method: boxAccessorMethod,
         //address
         methodArgs: [from],
         boxes: [
         {
-            appIndex: 479584007,
+            appIndex: appID,
             name: boxKey,
         },{
-            appIndex: 479584007,
+            appIndex: appID,
             name: boxKey,
         },
         ],
@@ -172,4 +173,135 @@ export async function register(from: string){
   for (const mr of result.methodResults) {
     console.log(`${mr.returnValue}`);
   }
+}
+
+
+export async function isProvider(addr: string){
+
+    const algodClient = new algosdk.Algodv2(algodToken, algodServer);
+    const suggestedParams = await algodClient.getTransactionParams().do();
+    const sender = algosdk.mnemonicToSecretKey("soldier two kind supply fork bone hamster now language sheriff cinnamon success please vendor carpet whale matrix size media crystal club clump mystery above front")
+    const siger = algosdk.makeBasicAccountTransactionSigner(sender)
+
+    const boxATC = new algosdk.AtomicTransactionComposer();
+
+    const boxAccessorMethod = new algosdk.ABIMethod({
+        name: 'IsRegister',
+        args: [
+            {
+                "type": "uint64",
+                "name": "offset"
+              },
+              {
+                "type": "address",
+                "name": "addr"
+              }
+        ],
+        returns: { "type": "bool" },
+      });
+
+    const boxKey = new Uint8Array(Buffer.from('Members'));
+    boxATC.addMethodCall({
+        appID: appID,
+        method: boxAccessorMethod,
+        //address
+        methodArgs: [0, addr],
+        boxes: [
+        {
+            appIndex: appID,
+            name: boxKey,
+        },{
+            appIndex: appID,
+            name: boxKey,
+        },
+        ],
+        sender: sender.addr,
+        signer: siger,
+        suggestedParams,
+    });
+    const result = await boxATC.execute(algodClient, 4);
+    for (const mr of result.methodResults) {
+        console.log(`${mr.returnValue}`);
+    }
+}
+
+export async function provider_list(){
+    var providers_list: string[] = [];
+
+    const algodClient = new algosdk.Algodv2(algodToken, algodServer);
+    const suggestedParams = await algodClient.getTransactionParams().do();
+    const sender = algosdk.mnemonicToSecretKey("soldier two kind supply fork bone hamster now language sheriff cinnamon success please vendor carpet whale matrix size media crystal club clump mystery above front")
+    const siger = algosdk.makeBasicAccountTransactionSigner(sender)
+
+    //Providers number
+    var provider_number: number = 0;
+    const ATC = new algosdk.AtomicTransactionComposer();
+    const AccessorMethod = new algosdk.ABIMethod({
+        name: 'readIndex',
+        args: [],
+        returns: { "type": "uint64" },
+      });
+
+    ATC.addMethodCall({
+        appID: appID,
+        method: AccessorMethod,
+        //address
+        methodArgs: [],
+        boxes: [],
+        sender: sender.addr,
+        signer: siger,
+        suggestedParams,
+    });
+    const result = await ATC.execute(algodClient, 4);
+    for (const mr of result.methodResults) {
+        console.log(`${mr.returnValue}`);
+        if(mr.returnValue){
+            provider_number = Number(mr.returnValue)
+        }
+    }
+
+    //ask for provider list
+    const boxATC = new algosdk.AtomicTransactionComposer();
+
+    const boxAccessorMethod = new algosdk.ABIMethod({
+        name: 'AddressByIndex',
+        args: [
+            {
+                "type": "uint64",
+                "name": "index"
+            }
+        ],
+        returns: { "type": "address" },
+      });
+
+    const boxKey = new Uint8Array(Buffer.from('Members'));
+
+    for(var i=0; i<provider_number; i++){
+        boxATC.addMethodCall({
+            appID: appID,
+            method: boxAccessorMethod,
+            //address
+            methodArgs: [i],
+            boxes: [
+            {
+                appIndex: appID,
+                name: boxKey,
+            },{
+                appIndex: appID,
+                name: boxKey,
+            },
+            ],
+            sender: sender.addr,
+            signer: siger,
+            suggestedParams,
+        });
+    }
+    
+    const result_list = await boxATC.execute(algodClient, 4);
+    for (const mr of result_list.methodResults) {
+        providers_list.push(String(mr.returnValue))
+    }
+
+    console.log(providers_list)
+    return providers_list;
 }

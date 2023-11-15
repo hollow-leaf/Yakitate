@@ -15,12 +15,10 @@ router = Router(
 
 ### Global State Operations ###
 @router.method
-def writeGlobal(quote: abi.Uint64):
-    return App.globalPut(Bytes("membercount"), quote.get())
-
-@router.method
-def readGlobal(*, output: abi.Uint64):
-    return output.set(App.globalGet(Bytes("membercount")))
+def BoxInit():
+    return Seq(
+        Assert(App.box_create(Bytes("Members"), Int(2048)))
+    )
 
 @router.method
 def readIndex(*, output: abi.Uint64):
@@ -32,14 +30,17 @@ def NewRegister(member: abi.Address, *, output: abi.Uint64):
     BoxIndex = abi.Uint64()
     Zero64 = abi.Uint64()
     T32 = abi.Uint64()
+    REG = abi.Bool()
+    FALSE = abi.Bool()
     return Seq(
-        Assert(BytesEq(member.get(), Txn.sender())),
         Zero64.set(0),
         T32.set(32),
+        _IsRegister(Zero64, member).store_into(REG),
+        FALSE.set(False),
+        Assert(Eq(REG.get(), FALSE.get())),
+        Assert(BytesEq(member.get(), Txn.sender())),
         MemberIndex.set(App.globalGet(Bytes("MemberIndex"))),
         BoxIndex.set(Mul(MemberIndex.get(), T32.get())),
-        If(MemberIndex.get() == Zero64.get()).Then(Assert(App.box_create(Bytes("Members"), Int(2048)))),
-        ###Warn 2bytes
         App.box_replace(Bytes("Members"), BoxIndex.get(), member.get()),
         App.globalPut(Bytes("MemberIndex"), MemberIndex.get() + Int(1)),
         output.set(MemberIndex.get())

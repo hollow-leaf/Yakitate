@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog-for-register"
 import { Button } from "@/components/ui/button"
 import { Input } from "../ui/input"
-import {register} from "../../service/provider/provider"
+import {register, provider_list} from "../../service/provider/provider"
 import {peraWallet} from "../../service/perawallet"
   
 export function RegitsterBtn() {
@@ -32,6 +32,7 @@ export function RegitsterBtn() {
             {
               if(peraWallet.connector?.accounts[0]){
                 register(peraWallet.connector?.accounts[0])
+                provider_list()
               }else{
                 console.log(peraWallet.isConnected)
                 console.log("not connect")

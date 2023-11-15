@@ -21,6 +21,7 @@ function RegitsterBtn() {
                         var _a, _b;
                         if ((_a = perawallet_1.peraWallet.connector) === null || _a === void 0 ? void 0 : _a.accounts[0]) {
                             provider_1.register((_b = perawallet_1.peraWallet.connector) === null || _b === void 0 ? void 0 : _b.accounts[0]);
+                            provider_1.provider_list();
                         }
                         else {
                             console.log(perawallet_1.peraWallet.isConnected);
