@@ -36,11 +36,12 @@ export function CardWithForm() {
     { src: "junkfood.jpg", name: "hotpot" },
     { src: "protein.jpg", name: "Protein" }
   ];
-  const result = Object.keys(data).map((data:any,index:number)=>(
+
+  const result = Object.values(data).map((item:any,index:number)=>(
     
     <Card key={index} className="w-1/4 p-2 border-spacing-3 mx-1">
       <CardHeader>
-        <CardTitle>{data.name}</CardTitle>
+        <CardTitle>{item.name}</CardTitle>
       </CardHeader>
       <CardContent>
         <Image
@@ -61,7 +62,7 @@ export function CardWithForm() {
     >
       <div className="container mx-auto">
         <div className="text-white flex justify-center items-center text-4xl mb-10">
-          Deployed Food NFT
+          Deployed Food
         </div>
         <div className="flex flex-wrap">
           {data ? result : <p>loading...</p>}
