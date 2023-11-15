@@ -36,11 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.register = exports.retrieveAsset = exports.transfer_food = exports.request_food = exports.dispatch_food = exports.provide_food = void 0;
+exports.provider_list = exports.isProvider = exports.register = exports.retrieveAsset = exports.transfer_food = exports.request_food = exports.dispatch_food = exports.provide_food = void 0;
 var algosdk_1 = require("algosdk");
 var perawallet_1 = require("../perawallet");
 var algodToken = 'a'.repeat(64);
 var algodServer = 'https://testnet-api.algonode.cloud';
+var appID = 479617162;
 function provide_food(creator, food, amount) {
     return __awaiter(this, void 0, void 0, function () {
         var algodClient, suggestedParams, txn, singleTxnGroups, signedTxn, result, assetIndex;
@@ -243,16 +244,16 @@ function register(from) {
                     });
                     boxKey = new Uint8Array(Buffer.from('Members'));
                     boxATC.addMethodCall({
-                        appID: 479584007,
+                        appID: appID,
                         method: boxAccessorMethod,
                         //address
                         methodArgs: [from],
                         boxes: [
                             {
-                                appIndex: 479584007,
+                                appIndex: appID,
                                 name: boxKey
                             }, {
-                                appIndex: 479584007,
+                                appIndex: appID,
                                 name: boxKey
                             },
                         ],
@@ -285,3 +286,148 @@ function register(from) {
     });
 }
 exports.register = register;
+function isProvider(addr) {
+    return __awaiter(this, void 0, void 0, function () {
+        var algodClient, suggestedParams, sender, siger, boxATC, boxAccessorMethod, boxKey, result, _i, _a, mr;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    algodClient = new algosdk_1["default"].Algodv2(algodToken, algodServer);
+                    return [4 /*yield*/, algodClient.getTransactionParams()["do"]()];
+                case 1:
+                    suggestedParams = _b.sent();
+                    sender = algosdk_1["default"].mnemonicToSecretKey("soldier two kind supply fork bone hamster now language sheriff cinnamon success please vendor carpet whale matrix size media crystal club clump mystery above front");
+                    siger = algosdk_1["default"].makeBasicAccountTransactionSigner(sender);
+                    boxATC = new algosdk_1["default"].AtomicTransactionComposer();
+                    boxAccessorMethod = new algosdk_1["default"].ABIMethod({
+                        name: 'IsRegister',
+                        args: [
+                            {
+                                "type": "uint64",
+                                "name": "offset"
+                            },
+                            {
+                                "type": "address",
+                                "name": "addr"
+                            }
+                        ],
+                        returns: { "type": "bool" }
+                    });
+                    boxKey = new Uint8Array(Buffer.from('Members'));
+                    boxATC.addMethodCall({
+                        appID: appID,
+                        method: boxAccessorMethod,
+                        //address
+                        methodArgs: [0, addr],
+                        boxes: [
+                            {
+                                appIndex: appID,
+                                name: boxKey
+                            }, {
+                                appIndex: appID,
+                                name: boxKey
+                            },
+                        ],
+                        sender: sender.addr,
+                        signer: siger,
+                        suggestedParams: suggestedParams
+                    });
+                    return [4 /*yield*/, boxATC.execute(algodClient, 4)];
+                case 2:
+                    result = _b.sent();
+                    for (_i = 0, _a = result.methodResults; _i < _a.length; _i++) {
+                        mr = _a[_i];
+                        console.log("" + mr.returnValue);
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.isProvider = isProvider;
+function provider_list() {
+    return __awaiter(this, void 0, void 0, function () {
+        var providers_list, algodClient, suggestedParams, sender, siger, provider_number, ATC, AccessorMethod, result, _i, _a, mr, boxATC, boxAccessorMethod, boxKey, i, result_list, _b, _c, mr;
+        return __generator(this, function (_d) {
+            switch (_d.label) {
+                case 0:
+                    providers_list = [];
+                    algodClient = new algosdk_1["default"].Algodv2(algodToken, algodServer);
+                    return [4 /*yield*/, algodClient.getTransactionParams()["do"]()];
+                case 1:
+                    suggestedParams = _d.sent();
+                    sender = algosdk_1["default"].mnemonicToSecretKey("soldier two kind supply fork bone hamster now language sheriff cinnamon success please vendor carpet whale matrix size media crystal club clump mystery above front");
+                    siger = algosdk_1["default"].makeBasicAccountTransactionSigner(sender);
+                    provider_number = 0;
+                    ATC = new algosdk_1["default"].AtomicTransactionComposer();
+                    AccessorMethod = new algosdk_1["default"].ABIMethod({
+                        name: 'readIndex',
+                        args: [],
+                        returns: { "type": "uint64" }
+                    });
+                    ATC.addMethodCall({
+                        appID: appID,
+                        method: AccessorMethod,
+                        //address
+                        methodArgs: [],
+                        boxes: [],
+                        sender: sender.addr,
+                        signer: siger,
+                        suggestedParams: suggestedParams
+                    });
+                    return [4 /*yield*/, ATC.execute(algodClient, 4)];
+                case 2:
+                    result = _d.sent();
+                    for (_i = 0, _a = result.methodResults; _i < _a.length; _i++) {
+                        mr = _a[_i];
+                        console.log("" + mr.returnValue);
+                        if (mr.returnValue) {
+                            provider_number = Number(mr.returnValue);
+                        }
+                    }
+                    boxATC = new algosdk_1["default"].AtomicTransactionComposer();
+                    boxAccessorMethod = new algosdk_1["default"].ABIMethod({
+                        name: 'AddressByIndex',
+                        args: [
+                            {
+                                "type": "uint64",
+                                "name": "index"
+                            }
+                        ],
+                        returns: { "type": "address" }
+                    });
+                    boxKey = new Uint8Array(Buffer.from('Members'));
+                    for (i = 0; i < provider_number; i++) {
+                        boxATC.addMethodCall({
+                            appID: appID,
+                            method: boxAccessorMethod,
+                            //address
+                            methodArgs: [i],
+                            boxes: [
+                                {
+                                    appIndex: appID,
+                                    name: boxKey
+                                }, {
+                                    appIndex: appID,
+                                    name: boxKey
+                                },
+                            ],
+                            sender: sender.addr,
+                            signer: siger,
+                            suggestedParams: suggestedParams
+                        });
+                    }
+                    return [4 /*yield*/, boxATC.execute(algodClient, 4)];
+                case 3:
+                    result_list = _d.sent();
+                    for (_b = 0, _c = result_list.methodResults; _b < _c.length; _b++) {
+                        mr = _c[_b];
+                        providers_list.push(String(mr.returnValue));
+                    }
+                    console.log(providers_list);
+                    return [2 /*return*/, providers_list];
+            }
+        });
+    });
+}
+exports.provider_list = provider_list;

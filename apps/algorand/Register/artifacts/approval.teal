@@ -2,32 +2,40 @@
 txn NumAppArgs
 int 0
 ==
-bnz main_l14
-txna ApplicationArgs 0
-method "writeGlobal(uint64)void"
-==
-bnz main_l13
-txna ApplicationArgs 0
-method "readGlobal()uint64"
-==
 bnz main_l12
 txna ApplicationArgs 0
-method "readIndex()uint64"
+method "BoxInit()void"
 ==
 bnz main_l11
 txna ApplicationArgs 0
-method "NewRegister(address)uint64"
+method "readIndex()uint64"
 ==
 bnz main_l10
 txna ApplicationArgs 0
-method "AddressByIndex(uint64)address"
+method "NewRegister(address)uint64"
 ==
 bnz main_l9
 txna ApplicationArgs 0
-method "IsRegister(uint64,address)bool"
+method "AddressByIndex(uint64)address"
 ==
 bnz main_l8
+txna ApplicationArgs 0
+method "IsRegister(uint64,address)bool"
+==
+bnz main_l7
 err
+main_l7:
+txn OnCompletion
+int NoOp
+==
+txn ApplicationID
+int 0
+!=
+&&
+assert
+callsub IsRegistercaster_11
+int 1
+return
 main_l8:
 txn OnCompletion
 int NoOp
@@ -37,7 +45,7 @@ int 0
 !=
 &&
 assert
-callsub IsRegistercaster_13
+callsub AddressByIndexcaster_10
 int 1
 return
 main_l9:
@@ -49,7 +57,7 @@ int 0
 !=
 &&
 assert
-callsub AddressByIndexcaster_12
+callsub NewRegistercaster_9
 int 1
 return
 main_l10:
@@ -61,7 +69,7 @@ int 0
 !=
 &&
 assert
-callsub NewRegistercaster_11
+callsub readIndexcaster_8
 int 1
 return
 main_l11:
@@ -73,62 +81,38 @@ int 0
 !=
 &&
 assert
-callsub readIndexcaster_10
+callsub BoxInitcaster_7
 int 1
 return
 main_l12:
 txn OnCompletion
 int NoOp
 ==
-txn ApplicationID
-int 0
-!=
-&&
-assert
-callsub readGlobalcaster_9
-int 1
-return
-main_l13:
-txn OnCompletion
-int NoOp
-==
-txn ApplicationID
-int 0
-!=
-&&
-assert
-callsub writeGlobalcaster_8
-int 1
-return
-main_l14:
-txn OnCompletion
-int NoOp
-==
-bnz main_l20
+bnz main_l18
 txn OnCompletion
 int OptIn
 ==
-bnz main_l19
+bnz main_l17
 txn OnCompletion
 int CloseOut
 ==
-bnz main_l18
+bnz main_l16
 err
+main_l16:
+txn ApplicationID
+int 0
+!=
+assert
+int 1
+return
+main_l17:
+txn ApplicationID
+int 0
+!=
+assert
+int 1
+return
 main_l18:
-txn ApplicationID
-int 0
-!=
-assert
-int 1
-return
-main_l19:
-txn ApplicationID
-int 0
-!=
-assert
-int 1
-return
-main_l20:
 txn ApplicationID
 int 0
 ==
@@ -139,25 +123,17 @@ app_global_put
 int 1
 return
 
-// writeGlobal
-writeGlobal_0:
-proto 1 0
-byte "membercount"
-frame_dig -1
-app_global_put
-retsub
-
-// readGlobal
-readGlobal_1:
-proto 0 1
-int 0
-byte "membercount"
-app_global_get
-frame_bury 0
+// BoxInit
+BoxInit_0:
+proto 0 0
+byte "Members"
+int 2048
+box_create
+assert
 retsub
 
 // readIndex
-readIndex_2:
+readIndex_1:
 proto 0 1
 int 0
 byte "MemberIndex"
@@ -166,18 +142,28 @@ frame_bury 0
 retsub
 
 // NewRegister
-NewRegister_3:
+NewRegister_2:
 proto 1 1
 int 0
-dupn 4
-frame_dig -1
-txn Sender
-b==
-assert
+dupn 6
 int 0
 frame_bury 3
 int 32
 frame_bury 4
+frame_dig 3
+frame_dig -1
+callsub IsRegister_6
+frame_bury 5
+int 0
+frame_bury 6
+frame_dig 5
+frame_dig 6
+==
+assert
+frame_dig -1
+txn Sender
+b==
+assert
 byte "MemberIndex"
 app_global_get
 frame_bury 1
@@ -185,15 +171,6 @@ frame_dig 1
 frame_dig 4
 *
 frame_bury 2
-frame_dig 1
-frame_dig 3
-==
-bz NewRegister_3_l2
-byte "Members"
-int 2048
-box_create
-assert
-NewRegister_3_l2:
 byte "Members"
 frame_dig 2
 frame_dig -1
@@ -208,26 +185,26 @@ frame_bury 0
 retsub
 
 // AddressByIndex
-AddressByIndex_4:
+AddressByIndex_3:
 proto 1 1
 byte ""
 frame_dig -1
-callsub AddressByIndex_6
+callsub AddressByIndex_5
 frame_bury 0
 retsub
 
 // IsRegister
-IsRegister_5:
+IsRegister_4:
 proto 2 1
 int 0
 frame_dig -2
 frame_dig -1
-callsub IsRegister_7
+callsub IsRegister_6
 frame_bury 0
 retsub
 
 // _AddressByIndex
-AddressByIndex_6:
+AddressByIndex_5:
 proto 1 1
 byte ""
 dup
@@ -261,7 +238,7 @@ assert
 retsub
 
 // _IsRegister
-IsRegister_7:
+IsRegister_6:
 proto 2 1
 int 0
 dupn 2
@@ -271,13 +248,13 @@ int 32
 frame_bury 2
 frame_dig -2
 frame_bury 4
-IsRegister_7_l1:
+IsRegister_6_l1:
 frame_dig 4
 frame_dig -2
 int 20
 +
 <
-bz IsRegister_7_l5
+bz IsRegister_6_l5
 frame_dig 4
 frame_dig 2
 *
@@ -295,47 +272,29 @@ assert
 frame_dig 3
 frame_dig -1
 b==
-bnz IsRegister_7_l4
+bnz IsRegister_6_l4
 frame_dig 4
 int 1
 +
 frame_bury 4
-b IsRegister_7_l1
-IsRegister_7_l4:
+b IsRegister_6_l1
+IsRegister_6_l4:
 int 1
 frame_bury 0
-IsRegister_7_l5:
+IsRegister_6_l5:
 retsub
 
-// writeGlobal_caster
-writeGlobalcaster_8:
+// BoxInit_caster
+BoxInitcaster_7:
 proto 0 0
-int 0
-txna ApplicationArgs 1
-btoi
-frame_bury 0
-frame_dig 0
-callsub writeGlobal_0
-retsub
-
-// readGlobal_caster
-readGlobalcaster_9:
-proto 0 0
-int 0
-callsub readGlobal_1
-frame_bury 0
-byte 0x151f7c75
-frame_dig 0
-itob
-concat
-log
+callsub BoxInit_0
 retsub
 
 // readIndex_caster
-readIndexcaster_10:
+readIndexcaster_8:
 proto 0 0
 int 0
-callsub readIndex_2
+callsub readIndex_1
 frame_bury 0
 byte 0x151f7c75
 frame_dig 0
@@ -345,14 +304,14 @@ log
 retsub
 
 // NewRegister_caster
-NewRegistercaster_11:
+NewRegistercaster_9:
 proto 0 0
 int 0
 byte ""
 txna ApplicationArgs 1
 frame_bury 1
 frame_dig 1
-callsub NewRegister_3
+callsub NewRegister_2
 frame_bury 0
 byte 0x151f7c75
 frame_dig 0
@@ -362,7 +321,7 @@ log
 retsub
 
 // AddressByIndex_caster
-AddressByIndexcaster_12:
+AddressByIndexcaster_10:
 proto 0 0
 byte ""
 int 0
@@ -370,7 +329,7 @@ txna ApplicationArgs 1
 btoi
 frame_bury 1
 frame_dig 1
-callsub AddressByIndex_4
+callsub AddressByIndex_3
 frame_bury 0
 byte 0x151f7c75
 frame_dig 0
@@ -379,7 +338,7 @@ log
 retsub
 
 // IsRegister_caster
-IsRegistercaster_13:
+IsRegistercaster_11:
 proto 0 0
 int 0
 dup
@@ -391,7 +350,7 @@ txna ApplicationArgs 2
 frame_bury 2
 frame_dig 1
 frame_dig 2
-callsub IsRegister_5
+callsub IsRegister_4
 frame_bury 0
 byte 0x151f7c75
 byte 0x00
