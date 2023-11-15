@@ -18,6 +18,7 @@ export async function food_available(provider_list: string[]) {
     
     provider_list.forEach(addr=>{
         foodlist.push(food_available_provider(addr))
+        console.log(foodlist)
     })
 
 
@@ -51,7 +52,7 @@ export async function food_available(provider_list: string[]) {
         )
     }
 
-    console.log(food_info_res_list)
+    console.log(Object.values(food_info_res_list))
     return food_info_res_list
 
 }
