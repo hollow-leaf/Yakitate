@@ -41,15 +41,15 @@ var algosdk_1 = require("algosdk");
 var axios_1 = require("axios");
 var host = "https://testnet-api.algonode.cloud";
 var algodToken = 'a'.repeat(64);
-var algodServer = 'http://localhost';
-var algodPort = 4001;
-var algodClient = new algosdk_1["default"].Algodv2(algodToken, algodServer, algodPort);
+var algodServer = "https://testnet-api.algonode.cloud";
+var algodClient = new algosdk_1["default"].Algodv2(algodToken, algodServer);
 function food_available(provider_list) {
     return __awaiter(this, void 0, void 0, function () {
         var foodlist, food_available_count, food_info_res_list, food_info_list, i;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    console.log(provider_list);
                     foodlist = [];
                     food_available_count = [];
                     food_info_res_list = [];

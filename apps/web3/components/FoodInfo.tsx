@@ -2,16 +2,16 @@ import algosdk from "algosdk"
 import axios from "axios";
 import {asset, food} from "../interface";
 
-const host = "http://localhost:4001"
+const host = "https://testnet-api.algonode.cloud"
 
 const algodToken = 'a'.repeat(64);
-const algodServer = 'http://localhost';
-const algodPort = 4001;
+const algodServer =  "https://testnet-api.algonode.cloud";
 
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
+const algodClient = new algosdk.Algodv2(algodToken, algodServer);
 
 
 export async function food_available(provider_list: string[]) {
+    console.log(provider_list)
     var foodlist: any[] = [];
     var food_available_count:number[] = [];
     var food_info_res_list: food[] = []
