@@ -2,6 +2,7 @@ import { PeraWalletConnect } from "@perawallet/connect"
 import { useEffect, useState,useRef } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { setLogout, setLogin } from "@/store/userSlice";
+import algosdk from "algosdk";
 
 // Create the PeraWalletConnect instance outside of the component
 export const peraWallet = new PeraWalletConnect(
@@ -51,6 +52,7 @@ export function Wallet() {
         // Setup the disconnect event listener
         peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);   
         setAccountAddress(newAccounts[0]);
+
       })
       .catch((error) => {
         // You MUST handle the reject because once the user closes the modal, peraWallet.connect() promise will be rejected.

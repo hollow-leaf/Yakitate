@@ -125,3 +125,51 @@ export async function retrieveAsset(assetIndex:number){
     console.log(`Asset Params: ${assetInfo.params}`);
     
 }
+
+
+export async function register(from: string){
+    const algodClient = new algosdk.Algodv2(algodToken, algodServer);
+    const suggestedParams = await algodClient.getTransactionParams().do();
+
+    const boxATC = new algosdk.AtomicTransactionComposer();
+
+    const boxAccessorMethod = new algosdk.ABIMethod({
+        name: 'NewRegister',
+        args: [
+            {
+                "type": "address",
+                "name": "member"
+            }
+        ],
+        returns: { "type": "uint64" },
+      });
+
+    const boxKey = new Uint8Array(Buffer.from('Members'));
+    boxATC.addMethodCall({
+        appID: 479584007,
+        method: boxAccessorMethod,
+        //address
+        methodArgs: [from],
+        boxes: [
+        {
+            appIndex: 479584007,
+            name: boxKey,
+        },{
+            appIndex: 479584007,
+            name: boxKey,
+        },
+        ],
+        sender: from,
+        signer: async (unsignedTxns) => {
+            // Create an array of transaction groups with the unsigned transactions and the signers
+            const txnGroups = unsignedTxns.map((t) => ({txn: t, signers: [from]}));
+            // Call the signTransaction method of the peraWallet instance and return the signed transactions
+            return await peraWallet.signTransaction([txnGroups]);
+        },
+        suggestedParams,
+    });
+    const result = await boxATC.execute(algodClient, 4);
+  for (const mr of result.methodResults) {
+    console.log(`${mr.returnValue}`);
+  }
+}
