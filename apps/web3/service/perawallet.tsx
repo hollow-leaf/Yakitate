@@ -1,5 +1,5 @@
 import { PeraWalletConnect } from "@perawallet/connect"
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { setLogout, setLogin } from "@/store/userSlice";
 import algosdk from "algosdk";
@@ -27,7 +27,6 @@ export function Wallet() {
     });
   }, []);
 
-  const state = useSelector((state:any)=>state.user)
   
   const dispatch = useDispatch()
   return (

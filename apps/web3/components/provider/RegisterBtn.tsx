@@ -18,29 +18,24 @@ export function RegitsterBtn() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Register</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <div>
-          Address:
-          <Input type="text"/>
-          <br/>
-        </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={()=>
+        <Button variant="outline" onClick={()=>
             {
               if(peraWallet.connector?.accounts[0]){
-                register(peraWallet.connector?.accounts[0])
-                provider_list()
+                try{
+                  register(peraWallet.connector?.accounts[0]).catch(err=>{
+                    alert("You have registered!")
+                  })
+                }catch(err){
+                  alert("You have registered!")
+                }
               }else{
                 console.log(peraWallet.isConnected)
                 console.log("not connect")
               }
             }
-          }>Submit</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
+          }>Register</Button>
+      </AlertDialogTrigger>
+      
     </AlertDialog>
   )
 }

@@ -22,7 +22,6 @@ function Wallet() {
             }
         });
     }, []);
-    var state = react_redux_1.useSelector(function (state) { return state.user; });
     var dispatch = react_redux_1.useDispatch();
     return (React.createElement("div", { className: "text-white flex items-center space-x-4" },
         React.createElement("div", null,
@@ -37,6 +36,7 @@ function Wallet() {
             // Setup the disconnect event listener
             (_a = exports.peraWallet.connector) === null || _a === void 0 ? void 0 : _a.on("disconnect", handleDisconnectWalletClick);
             setAccountAddress(newAccounts[0]);
+            dispatch(userSlice_1.setLogin({ address: newAccounts[0] }));
         })["catch"](function (error) {
             var _a;
             // You MUST handle the reject because once the user closes the modal, peraWallet.connect() promise will be rejected.
