@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 function Loading() {
-    return React.createElement("span", { className: "text-[#57b795] loading loading-bars loading-lg absolute top-1/2 left-1/2 -translate-y-2/4 -translate-x-2/4" });
+    return (React.createElement("div", { className: "loader-container" },
+        React.createElement("div", { className: "spinner" })));
 }
 exports["default"] = Loading;
