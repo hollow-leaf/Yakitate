@@ -36,12 +36,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.transfer_food = exports.request_food = exports.dispatch_food = exports.provide_food = void 0;
+exports.register = exports.retrieveAsset = exports.transfer_food = exports.request_food = exports.dispatch_food = exports.provide_food = void 0;
 var algosdk_1 = require("algosdk");
 var perawallet_1 = require("../perawallet");
 var algodToken = 'a'.repeat(64);
 var algodServer = 'https://testnet-api.algonode.cloud';
-function provide_food(creator, food, amount, url) {
+function provide_food(creator, food, amount) {
     return __awaiter(this, void 0, void 0, function () {
         var algodClient, suggestedParams, txn, singleTxnGroups, signedTxn, result, assetIndex;
         return __generator(this, function (_a) {
@@ -61,7 +61,7 @@ function provide_food(creator, food, amount, url) {
                         reserve: creator,
                         freeze: creator,
                         clawback: creator,
-                        assetURL: url,
+                        assetURL: " ",
                         total: amount,
                         decimals: 0
                     });
@@ -201,3 +201,87 @@ function transfer_food(from, Id, receiver) {
     });
 }
 exports.transfer_food = transfer_food;
+function retrieveAsset(assetIndex) {
+    return __awaiter(this, void 0, void 0, function () {
+        var algodClient, assetInfo;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    algodClient = new algosdk_1["default"].Algodv2(algodToken, algodServer);
+                    return [4 /*yield*/, algodClient.getAssetByID(assetIndex)["do"]()];
+                case 1:
+                    assetInfo = _a.sent();
+                    console.log("Asset Name: " + assetInfo.params.name);
+                    console.log("Asset Params: " + assetInfo.params);
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.retrieveAsset = retrieveAsset;
+function register(from) {
+    return __awaiter(this, void 0, void 0, function () {
+        var algodClient, suggestedParams, boxATC, boxAccessorMethod, boxKey, result, _i, _a, mr;
+        var _this = this;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    algodClient = new algosdk_1["default"].Algodv2(algodToken, algodServer);
+                    return [4 /*yield*/, algodClient.getTransactionParams()["do"]()];
+                case 1:
+                    suggestedParams = _b.sent();
+                    boxATC = new algosdk_1["default"].AtomicTransactionComposer();
+                    boxAccessorMethod = new algosdk_1["default"].ABIMethod({
+                        name: 'NewRegister',
+                        args: [
+                            {
+                                "type": "address",
+                                "name": "member"
+                            }
+                        ],
+                        returns: { "type": "uint64" }
+                    });
+                    boxKey = new Uint8Array(Buffer.from('Members'));
+                    boxATC.addMethodCall({
+                        appID: 479584007,
+                        method: boxAccessorMethod,
+                        //address
+                        methodArgs: [from],
+                        boxes: [
+                            {
+                                appIndex: 479584007,
+                                name: boxKey
+                            }, {
+                                appIndex: 479584007,
+                                name: boxKey
+                            },
+                        ],
+                        sender: from,
+                        signer: function (unsignedTxns) { return __awaiter(_this, void 0, void 0, function () {
+                            var txnGroups;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        txnGroups = unsignedTxns.map(function (t) { return ({ txn: t, signers: [from] }); });
+                                        return [4 /*yield*/, perawallet_1.peraWallet.signTransaction([txnGroups])];
+                                    case 1: 
+                                    // Call the signTransaction method of the peraWallet instance and return the signed transactions
+                                    return [2 /*return*/, _a.sent()];
+                                }
+                            });
+                        }); },
+                        suggestedParams: suggestedParams
+                    });
+                    return [4 /*yield*/, boxATC.execute(algodClient, 4)];
+                case 2:
+                    result = _b.sent();
+                    for (_i = 0, _a = result.methodResults; _i < _a.length; _i++) {
+                        mr = _a[_i];
+                        console.log("" + mr.returnValue);
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.register = register;

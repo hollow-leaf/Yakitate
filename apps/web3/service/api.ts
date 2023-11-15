@@ -1,6 +1,7 @@
 import axios from "axios";
 const host = "https://testnet-api.algonode.cloud"
 
+
 export async function getAssets(address:string) {
     try {
         const res = await axios({
