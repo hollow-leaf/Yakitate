@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9f14d72-03e0-4024-ac6e-008dfcd3bc24" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Register/artifacts/approval.teal" beforeDir="false" afterPath="$PROJECT_DIR$/Register/artifacts/approval.teal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Register/artifacts/contract.json" beforeDir="false" afterPath="$PROJECT_DIR$/Register/artifacts/contract.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Register/register.py" beforeDir="false" afterPath="$PROJECT_DIR$/Register/register.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web3/components/provider/RegisterBtn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/components/provider/RegisterBtn.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web3/components/provider/dist/RegisterBtn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/components/provider/dist/RegisterBtn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web3/service/provider/dist/provider.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/service/provider/dist/provider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../web3/service/provider/provider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/service/provider/provider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web3/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web3/app/receiver/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/app/receiver/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web3/components/FoodInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/components/FoodInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../web3/components/dist/FoodInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../web3/components/dist/FoodInfo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
