@@ -52,7 +52,7 @@ export function Wallet() {
         // Setup the disconnect event listener
         peraWallet.connector?.on("disconnect", handleDisconnectWalletClick);   
         setAccountAddress(newAccounts[0]);
-
+        dispatch(setLogin({address:newAccounts[0]}))
       })
       .catch((error) => {
         // You MUST handle the reject because once the user closes the modal, peraWallet.connect() promise will be rejected.
