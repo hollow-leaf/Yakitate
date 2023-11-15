@@ -2,13 +2,13 @@ import algosdk from "algosdk"
 import axios from "axios";
 import {asset, food} from "../interface";
 
-const host = "http://localhost:4001"
+const host = "https://testnet-api.algonode.cloud"
 
 const algodToken = 'a'.repeat(64);
 const algodServer = 'http://localhost';
 const algodPort = 4001;
 
-const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
+const algodClient = new algosdk.Algodv2(algodToken, host);
 
 
 export async function food_available(provider_list: string[]) {
@@ -18,6 +18,7 @@ export async function food_available(provider_list: string[]) {
     
     provider_list.forEach(addr=>{
         foodlist.push(food_available_provider(addr))
+        console.log(foodlist)
     })
 
 
@@ -51,7 +52,7 @@ export async function food_available(provider_list: string[]) {
         )
     }
 
-    console.log(food_info_res_list)
+    console.log(Object.values(food_info_res_list))
     return food_info_res_list
 
 }
