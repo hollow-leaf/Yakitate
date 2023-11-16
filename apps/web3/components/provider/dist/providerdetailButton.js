@@ -45,7 +45,7 @@ function ProviderDetailButton(props) {
                             React.createElement("p", { className: "ml-auto" }, props.total)),
                         React.createElement("div", { className: "flex " },
                             React.createElement("p", null, "Used Rate"),
-                            React.createElement("p", { className: "ml-auto" }, props.amount / props.total)),
+                            React.createElement("p", { className: "ml-auto" }, 1 - (props.amount / props.total))),
                         React.createElement("div", { style: { padding: "3%" } },
                             React.createElement("button", { className: "button-1 btn btn-success w-full mt-6 " }, "close")))))));
     }
