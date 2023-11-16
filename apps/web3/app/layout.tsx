@@ -47,12 +47,14 @@ export default function RootLayout({
       </Head>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased flex flex-col",
+          "min-h-screen bg-background font-sans antialiased flex flex-col justify-between",
           fontSans.variable
         )}
       >
         <Navbar />
+        <div className='flex h-auto w-screen flex-row'>
         {children}
+        </div>
         <Footer />
       </body>
     </html>
