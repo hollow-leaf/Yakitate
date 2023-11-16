@@ -13,7 +13,8 @@ export const peraWallet = new PeraWalletConnect(
 export function Wallet() {
   const [accountAddress, setAccountAddress] = useState('');
   const isConnectedToPeraWallet = !!accountAddress;
-
+  
+  const dispatch = useDispatch()
   useEffect(() => {
     // Reconnect to the session when the component is mounted
     peraWallet.reconnectSession().then((accounts) => {
@@ -28,7 +29,7 @@ export function Wallet() {
   }, []);
 
   
-  const dispatch = useDispatch()
+  
   return (
     <div className="text-white flex items-center space-x-4">
       <div>

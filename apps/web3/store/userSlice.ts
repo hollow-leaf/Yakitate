@@ -1,5 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit"
 
+
+
 const initialState = {
     wallet:{
         address: "",
@@ -7,7 +9,7 @@ const initialState = {
     }
 }
 
-const userSlice:any = createSlice({
+export const userSlice:any = createSlice({
     name:"user",
     initialState : initialState,
     reducers:{
@@ -25,5 +27,3 @@ const userSlice:any = createSlice({
 })
 
 export const {setLogin,setLogout} = userSlice.actions
-
-export default userSlice.reducer
