@@ -7,25 +7,15 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Head from 'next/head'
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
-import {configureStore} from "@reduxjs/toolkit"
 import { Provider } from "react-redux";
-import userSlice from '@/store/userSlice'
+
+import { store } from '@/store/store'
 // Create a client
 const queryClient = new QueryClient()
 
-//store
-const store =configureStore({
-  reducer:{
-    //key: value
-    user:userSlice
-  },
-})
 
 export const fontSans = FontSans({
   subsets: ["latin"],

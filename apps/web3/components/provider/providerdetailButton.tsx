@@ -56,7 +56,7 @@ function ProviderDetailButton(props: food) {
                 <p className="ml-auto">{props.total}</p>
                 </div><div className="flex ">
                 <p>Used Rate</p>
-                <p className="ml-auto">{props.amount/props.total}</p>
+                <p className="ml-auto">{1-(props.amount/props.total)}</p>
                 </div>
                 <div style={{padding:"3%"}}>
                 <button className="button-1 btn btn-success w-full mt-6 " >close</button>

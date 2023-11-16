@@ -12,3 +12,8 @@ export type food = {
     total: number,
     url: string
 }
+
+export type wallet = {
+    address: string,
+    login: boolean
+}

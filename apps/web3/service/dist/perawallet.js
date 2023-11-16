@@ -10,6 +10,7 @@ exports.peraWallet = new connect_1.PeraWalletConnect({ chainId: 416002 });
 function Wallet() {
     var _a = react_1.useState(''), accountAddress = _a[0], setAccountAddress = _a[1];
     var isConnectedToPeraWallet = !!accountAddress;
+    var dispatch = react_redux_1.useDispatch();
     react_1.useEffect(function () {
         // Reconnect to the session when the component is mounted
         exports.peraWallet.reconnectSession().then(function (accounts) {
@@ -22,7 +23,6 @@ function Wallet() {
             }
         });
     }, []);
-    var dispatch = react_redux_1.useDispatch();
     return (React.createElement("div", { className: "text-white flex items-center space-x-4" },
         React.createElement("div", null,
             React.createElement("p", { onClick: handleCopyClick }, accountAddress)),
