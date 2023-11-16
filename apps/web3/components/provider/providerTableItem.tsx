@@ -1,6 +1,7 @@
 import { food } from "@/interface";
 import { formatAddress } from "../../utils/stringify";
 import ProviderDetailButton from "./providerdetailButton"
+import Image from "next/image";
 
 function ProviderTableItem(props: food) {
 
@@ -8,9 +9,11 @@ function ProviderTableItem(props: food) {
     <>
         <div className="fooditem">
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                <img
-                    // @ts-ignore
+                <Image
                     src={"bread.jpg"}
+                    alt="bread"
+                    width={300}
+                    height={500}
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                     />
             </div>
