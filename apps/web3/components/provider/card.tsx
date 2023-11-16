@@ -17,7 +17,7 @@ export function CardWithForm() {
   const [data, setData] = React.useState({})
   const [address, setAddress] = React.useState<string[]>([''])
   const state = useSelector((state: any) => state.user);
-
+  console.log(state.wallet)
   React.useEffect(() => {
     setAddress([state.wallet.address])
   }, [state.wallet.address])

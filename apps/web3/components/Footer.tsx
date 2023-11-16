@@ -2,7 +2,7 @@
 import { FaGithub } from "react-icons/fa";
 export default function Footer() {
   return (
-      <footer className="bg-gray-800 flex items-center justify-between p-4 text-white">
+      <footer className="bg-gray-800 flex items-center justify-end space-x-8 p-4 text-white w-screen">
           <div className="flex items-center">
           <svg
         width="36"
