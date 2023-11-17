@@ -45,7 +45,7 @@ const Provider = () => {
               {isLoading&&<Loading />}
               {<ProviderTable foods={data} />}
             </section>
-            <section className="bg-gray-800">
+            <section className=" providersection">
               <Introduction />
             </section>
           </>
